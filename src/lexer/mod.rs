@@ -64,7 +64,6 @@ impl Lexer {
                     let ident = self.read_identifier()?;
                     match ident.as_str() {
                         "fn" => return Ok(Token::new(token::TokenKind::Fn)),
-                        "pub" => return Ok(Token::new(token::TokenKind::Pub)),
                         _ => {
                             return Ok(Token::new(token::TokenKind::Ident(ident)))
                         }

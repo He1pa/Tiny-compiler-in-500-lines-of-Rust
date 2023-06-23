@@ -15,8 +15,6 @@ pub enum TokenKind {
     Eof,
     Ident(String),
     String(String),
-    /// pub
-    Pub,
     /// fn
     Fn,
     /// "("

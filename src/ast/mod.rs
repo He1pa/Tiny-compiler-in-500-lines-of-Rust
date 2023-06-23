@@ -1,5 +1,5 @@
 #[derive(Debug, PartialEq, Clone, Default)]
-pub struct Module {
+pub struct Program {
     pub modname: String, // module full name which includes this file
     pub body: Vec<Stmt>,
 }
@@ -47,6 +47,8 @@ pub struct Expr {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum ExprKind {
     Call(CallExpr),
+    Ident(String),
+    Str(String),
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
