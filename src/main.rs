@@ -4,6 +4,7 @@ pub mod lexer;
 pub mod resolver;
 
 use lexer::Lexer;
+use resolver::Resolver;
 
 use crate::parser::Parser;
 
@@ -15,7 +16,8 @@ fn main() -> anyhow::Result<()>{
     let lexer = Lexer::new(input)?;
     let mut parser = Parser::new(lexer)?;
     let program = parser.parse()?;
-    // println!("{:?}", program);
+    let resolver = Resolver::new(&program);
+    resolver.resolve()?;
     for stmt in program.body{
         println!("{:?}", stmt);
     }
