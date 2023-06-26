@@ -3,7 +3,7 @@ use anyhow::Ok;
 use crate::ast::StmtKind::Function;
 use crate::ast::{Expr, ExprKind, ExprStmt, StmtKind};
 use crate::{
-    ast::{FunctionStmt, Identifier, Program, Stmt, Visibility},
+    ast::{FunctionStmt, Identifier, Program, Stmt},
     lexer::{
         token::{Token, TokenKind},
         Lexer,
@@ -45,7 +45,7 @@ impl Parser {
     }
     pub fn parse_stmt(&mut self) -> anyhow::Result<Stmt> {
         match self.current_token.kind {
-            TokenKind::Fn => self.parser_function_stmt(None),
+            TokenKind::Fn => self.parser_function_stmt(),
             TokenKind::Ident(_) => {
                 let expr = self.parse_expr()?;
                 // ";"
@@ -56,13 +56,12 @@ impl Parser {
                 })
             }
             _ => {
-                println!("{:?}", self.current_token.kind);
                 todo!()
             }
         }
     }
 
-    pub fn parser_function_stmt(&mut self, visibility: Option<Visibility>) -> anyhow::Result<Stmt> {
+    pub fn parser_function_stmt(&mut self) -> anyhow::Result<Stmt> {
         match self.current_token.kind {
             TokenKind::Fn => {
                 // fn
@@ -80,7 +79,6 @@ impl Parser {
                 let func = FunctionStmt {
                     name,
                     body,
-                    visibility,
                 };
                 Ok(Stmt {
                     kind: Function(func),

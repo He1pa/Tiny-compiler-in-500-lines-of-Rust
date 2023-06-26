@@ -29,17 +29,11 @@ pub struct FunctionStmt {
     pub name: Identifier,
     // pub params: Vec<Parameter>,
     pub body: Vec<Stmt>,
-    pub visibility: Option<Visibility>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct Identifier {
     pub name: String,
-}
-
-#[derive(PartialEq, Clone, Eq, Hash, Debug)]
-pub enum Visibility {
-    Pub,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
