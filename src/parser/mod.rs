@@ -5,7 +5,6 @@ use crate::ast::{Expr, ExprKind, ExprStmt, StmtKind};
 use crate::{
     ast::{FunctionStmt, Identifier, Program, Stmt, Visibility},
     lexer::{
-        self,
         token::{Token, TokenKind},
         Lexer,
     },
@@ -45,7 +44,6 @@ impl Parser {
         Ok(program)
     }
     pub fn parse_stmt(&mut self) -> anyhow::Result<Stmt> {
-        println!("parse_stmt {:?}", self.current_token);
         match self.current_token.kind {
             TokenKind::Fn => self.parser_function_stmt(None),
             TokenKind::Ident(_) => {
@@ -117,10 +115,9 @@ impl Parser {
 
     pub fn parse_expr(&mut self) -> anyhow::Result<Expr> {
         match &self.current_token.kind {
-            TokenKind::Ident(ident) => match self.next_token.kind {
+            TokenKind::Ident(_) => match self.next_token.kind {
                 TokenKind::Lparen => self.parse_call_expr(),
                 _ => {
-                    println!("{:?}", self.current_token);
                     todo!()
                 }
             },
@@ -128,11 +125,10 @@ impl Parser {
                 let expr = Expr {
                     kind: ExprKind::Str(s.clone()),
                 };
-                self.next_token();
+                self.next_token()?;
                 Ok(expr)
             }
             _ => {
-                println!("{:?}", self.current_token);
                 todo!()
             }
         }

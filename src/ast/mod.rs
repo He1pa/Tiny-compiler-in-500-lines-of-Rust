@@ -4,10 +4,18 @@ pub struct Program {
     pub body: Vec<Stmt>,
 }
 
-
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Stmt {
     pub kind: StmtKind,
+}
+
+impl Stmt {
+    pub fn into_func_stmt(&self) -> FunctionStmt {
+        match &self.kind {
+            StmtKind::Function(func) => func.clone(),
+            _ => panic!(),
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

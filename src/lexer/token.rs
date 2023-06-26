@@ -3,11 +3,10 @@ pub struct Token {
     pub kind: TokenKind,
 }
 
-impl Token{
-    pub fn new(kind: TokenKind) -> Self{
+impl Token {
+    pub fn new(kind: TokenKind) -> Self {
         Token { kind }
     }
-
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]

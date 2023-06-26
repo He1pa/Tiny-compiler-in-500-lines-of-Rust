@@ -45,8 +45,7 @@ impl Lexer {
 
     pub fn next_token(&mut self) -> anyhow::Result<Token> {
         self.skip_whitespace()?;
-        println!("{:?}", self.ch);
-        let token = match self.ch{
+        let token = match self.ch {
             EOF_CHAR => Token::new(token::TokenKind::Eof),
             ';' => Token::new(token::TokenKind::Semicolon),
             '{' => Token::new(token::TokenKind::Lbrace),
@@ -64,25 +63,15 @@ impl Lexer {
                     let ident = self.read_identifier()?;
                     match ident.as_str() {
                         "fn" => return Ok(Token::new(token::TokenKind::Fn)),
-                        _ => {
-                            return Ok(Token::new(token::TokenKind::Ident(ident)))
-                        }
+                        _ => return Ok(Token::new(token::TokenKind::Ident(ident))),
                     }
                 } else {
                     todo!()
                 }
             }
-            
         };
         self.read_char()?;
         Ok(token)
-
-    }
-
-    /// isDigit 函数与 isLetter 一样简单，只是判断传入的内容是否为 Latin 字符集中
-    /// 0 和 9 之间的数字。
-    fn is_digit(ch: char) -> bool {
-        ch.is_ascii_digit()
     }
 
     /// isLetter 辅助函数用来判断给定的参数是否为字母
@@ -109,9 +98,7 @@ impl Lexer {
             self.read_char()?;
         }
 
-        let ident = self
-            .input
-            .get(position..self.pos).unwrap().iter().collect();
+        let ident = self.input.get(position..self.pos).unwrap().iter().collect();
 
         Ok(ident)
     }
@@ -120,12 +107,11 @@ impl Lexer {
         let pos = self.pos + 1;
         loop {
             self.read_char()?;
-            if self.ch == '"'{
+            if self.ch == '"' {
                 break;
             }
         }
 
         Ok(self.input[pos..self.pos].iter().collect())
     }
-
 }
