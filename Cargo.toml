@@ -1,5 +1,5 @@
 [package]
-name = "TinyRust"
+name = "tiny_compiler_in_500_lines_of_rust"
 version = "0.1.0"
 edition = "2021"
 
